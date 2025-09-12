@@ -1,12 +1,12 @@
 {
   "showcase": {
     "name": "showcase",
-    "title": "AI SaaS Startups built with ShipAny",
-    "description": "Easy to use and fast to ship.",
+    "title": "Stock Anomaly Detection Success Stories",
+    "description": "Real examples of successful anomaly predictions and market insights.",
     "items": [
       {
-        "title": "ThinkAny",
-        "description": "AI Search Engine",
+        "title": "TSLA Anomaly Alert",
+        "description": "Volume Spike Detection",
         "url": "https://thinkany.ai",
         "target": "_blank",
         "image": {
@@ -14,8 +14,8 @@
         }
       },
       {
-        "title": "HeyBeauty",
-        "description": "AI Virtual Try On",
+        "title": "AAPL Price Pattern",
+        "description": "Technical Pattern Break",
         "url": "https://heybeauty.ai",
         "target": "_blank",
         "image": {
@@ -23,8 +23,8 @@
         }
       },
       {
-        "title": "AI Wallpaper",
-        "description": "AI Wallpaper Generator",
+        "title": "NVDA Momentum Shift",
+        "description": "Momentum Anomaly Alert",
         "url": "https://aiwallpaper.shop",
         "target": "_blank",
         "image": {
@@ -32,8 +32,8 @@
         }
       },
       {
-        "title": "AI Cover",
-        "description": "AI Cover Generator",
+        "title": "SPY Volatility Spike",
+        "description": "Market Volatility Warning",
         "url": "https://aicover.design",
         "target": "_blank",
         "image": {
@@ -41,8 +41,8 @@
         }
       },
       {
-        "title": "GPTs Works",
-        "description": "GPTs Directory",
+        "title": "AMZN Earnings Anomaly",
+        "description": "Pre-earnings Volume Alert",
         "url": "https://gpts.works",
         "target": "_blank",
         "image": {

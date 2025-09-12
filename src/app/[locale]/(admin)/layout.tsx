@@ -22,10 +22,10 @@ export default async function AdminLayout({
 
   const sidebar: Sidebar = {
     brand: {
-      title: "ShipAny",
+      title: "AlphaOption",
       logo: {
         src: "/logo.png",
-        alt: "ShipAny",
+        alt: "AlphaOption",
       },
       url: "/admin",
     },
@@ -43,88 +43,53 @@ export default async function AdminLayout({
     nav: {
       title: "Menu",
       items: [
+        // {
+        //   title: "Users",
+        //   url: "/admin/users",
+        //   icon: "RiUserLine",
+        // },
+        // {
+        //   title: "Orders",
+        //   icon: "RiOrderPlayLine",
+        //   url: "/admin/orders",
+        // },
+        // {
+        //   title: "CMS",
+        //   icon: "RiArticleLine",
+        //   is_expand: true,
+        //   children: [
+        //     {
+        //       title: "Posts",
+        //       url: "/admin/posts",
+        //       icon: "RiArticleLine",
+        //     },
+        //     {
+        //       title: "Categories",
+        //       url: "/admin/categories",
+        //       icon: "RiFolderLine",
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: "Feedbacks",
+        //   url: "/admin/feedbacks",
+        //   icon: "RiMessage2Line",
+        // },
         {
-          title: "Users",
-          url: "/admin/users",
-          icon: "RiUserLine",
-        },
-        {
-          title: "Orders",
-          icon: "RiOrderPlayLine",
-          url: "/admin/orders",
-        },
-        {
-          title: "CMS",
-          icon: "RiArticleLine",
-          is_expand: true,
-          children: [
-            {
-              title: "Posts",
-              url: "/admin/posts",
-              icon: "RiArticleLine",
-            },
-            {
-              title: "Categories",
-              url: "/admin/categories",
-              icon: "RiFolderLine",
-            },
-          ],
-        },
-        {
-          title: "Feedbacks",
-          url: "/admin/feedbacks",
-          icon: "RiMessage2Line",
+          title: "Site Access",
+          url: "/admin/site-keys",
+          icon: "RiKeyLine",
         },
       ],
     },
     bottomNav: {
       items: [
-        {
-          title: "Documents",
-          url: "https://docs.shipany.ai",
-          target: "_blank",
-          icon: "RiFileTextLine",
-        },
-        {
-          title: "Blocks",
-          url: "https://shipany.ai/blocks",
-          target: "_blank",
-          icon: "RiDashboardLine",
-        },
-        {
-          title: "Showcases",
-          url: "https://shipany.ai/showcase",
-          target: "_blank",
-          icon: "RiAppsLine",
-        },
+       
       ],
     },
     social: {
       items: [
-        {
-          title: "Home",
-          url: "/",
-          target: "_blank",
-          icon: "RiHomeLine",
-        },
-        {
-          title: "Github",
-          url: "https://github.com/shipanyai/shipany-template-one",
-          target: "_blank",
-          icon: "RiGithubLine",
-        },
-        {
-          title: "Discord",
-          url: "https://discord.gg/HQNnrzjZQS",
-          target: "_blank",
-          icon: "RiDiscordLine",
-        },
-        {
-          title: "X",
-          url: "https://x.com/shipanyai",
-          target: "_blank",
-          icon: "RiTwitterLine",
-        },
+
       ],
     },
     account: {

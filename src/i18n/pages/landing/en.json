@@ -1,12 +1,12 @@
 {
-  "template": "shipany-template-one",
+  "template": "AlphaOption-template-one",
   "theme": "light",
   "header": {
     "brand": {
-      "title": "ShipAny",
+      "title": "AlphaOption",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny"
+        "alt": "AlphaOption"
       },
       "url": "/"
     },
@@ -41,8 +41,8 @@
     },
     "buttons": [
       {
-        "title": "Get ShipAny",
-        "url": "https://shipany.ai",
+        "title": "Get AlphaOption",
+        "url": "https://AlphaOption.ai",
         "target": "_blank",
         "variant": "link",
         "icon": "RiArrowRightUpLine"
@@ -53,9 +53,9 @@
     "show_locale": true
   },
   "hero": {
-    "title": "Ship Any AI Startups in hours, not days",
-    "highlight_text": "Ship Any",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups.<br/>Ship Fast with a variety of templates and components.",
+    "title": "Track Stock Market Anomalies in Real-Time, Not Days Later",
+    "highlight_text": "Real-Time",
+    "description": "AlphaOption is a comprehensive stock market anomaly detection platform.<br/>Discover unusual patterns with categorized stock analysis and instant alerts.",
     "announcement": {
       "label": "2025",
       "title": "🎉 Happy New Year",
@@ -64,25 +64,18 @@
     "tip": "🎁 50% off before 2025",
     "buttons": [
       {
-        "title": "Get Started",
+        "title": "Start Tracking",
         "icon": "RiFlashlightFill",
         "url": "/pricing",
         "target": "_self",
         "variant": "default"
-      },
-      {
-        "title": "Read Document",
-        "icon": "RiBookOpenLine",
-        "url": "https://docs.shipany.ai",
-        "target": "_blank",
-        "variant": "outline"
       }
     ],
     "show_happy_users": true,
     "show_badge": false
   },
   "branding": {
-    "title": "ShipAny is built on the shoulders of giants",
+    "title": "AlphaOption powered by industry-leading technologies",
     "items": [
       {
         "title": "Next.js",
@@ -123,9 +116,9 @@
   },
   "introduce": {
     "name": "introduce",
-    "title": "What is ShipAny",
+    "title": "What is AlphaOption",
     "label": "Introduce",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Built in a variety of templates and components.",
+    "description": "AlphaOption is a NextJS boilerplate for building AI SaaS startups. Built in a variety of templates and components.",
     "image": {
       "src": "/imgs/features/1.png"
     },
@@ -149,29 +142,29 @@
   },
   "benefit": {
     "name": "benefit",
-    "title": "Why Choose ShipAny",
+    "title": "Why Choose AlphaOption for Stock Analysis",
     "label": "Benefits",
-    "description": "Get everything you need to launch your AI startup - from ready-to-use templates to technical support.",
+    "description": "Get comprehensive market anomaly detection - from real-time monitoring to categorized alerts and detailed analytics.",
     "items": [
       {
-        "title": "Complete Framework",
-        "description": "Built on Next.js with authentication, payments, and AI integration - everything works out of the box.",
+        "title": "Complete Detection System",
+        "description": "Advanced anomaly detection algorithms with real-time monitoring, categorized alerts, and comprehensive analytics.",
         "icon": "RiNextjsFill",
         "image": {
           "src": "/imgs/features/2.png"
         }
       },
       {
-        "title": "Rich Templates Library",
-        "description": "Choose from various AI SaaS templates to kickstart your project - chatbots, image generation, and more.",
+        "title": "Categorized Stock Analysis",
+        "description": "Search and filter stocks by anomaly types - price volatility, volume spikes, pattern breaks, and technical indicators.",
         "icon": "RiClapperboardAiLine",
         "image": {
           "src": "/imgs/features/3.png"
         }
       },
       {
-        "title": "Technical Guidance",
-        "description": "Get dedicated support and join our developer community to ensure your successful launch.",
+        "title": "Expert Market Insights",
+        "description": "Get professional analysis and join our trading community to maximize your market opportunities.",
         "icon": "RiCodeFill",
         "image": {
           "src": "/imgs/features/4.png"
@@ -181,8 +174,8 @@
   },
   "usage": {
     "name": "usage",
-    "title": "How to Launch with ShipAny",
-    "description": "Get your AI SaaS startup running in three simple steps:",
+    "title": "How to Get Started with AlphaOption",
+    "description": "Start tracking market anomalies in three simple steps:",
     "image": {
       "src": "/imgs/features/1.png"
     },
@@ -190,29 +183,29 @@
     "text_align": "center",
     "items": [
       {
-        "title": "Get ShipAny",
-        "description": "Buy ShipAny with a one-time payment. Check your email for the code and documentation.",
+        "title": "Subscribe to AlphaOption",
+        "description": "Choose your data subscription plan. Get access to real-time anomaly detection and alerts.",
         "image": {
           "src": "/imgs/features/5.png"
         }
       },
       {
-        "title": "Start Your Project",
-        "description": "Read the documentation and clone the code of ShipAny. Start building your AI SaaS startup.",
+        "title": "Configure Alerts",
+        "description": "Set up your preferred stock categories and anomaly types. Customize alert thresholds for your trading strategy.",
         "image": {
           "src": "/imgs/features/6.png"
         }
       },
       {
-        "title": "Customize Your Project",
-        "description": "Modify the template with your data and contents. Specific AI functionality needs.",
+        "title": "Monitor Anomalies",
+        "description": "Track unusual market patterns in real-time. Access detailed analysis and historical anomaly data.",
         "image": {
           "src": "/imgs/features/7.png"
         }
       },
       {
-        "title": "Deploy to Production",
-        "description": "Deploy your project to production with a few steps and start serving customers immediately.",
+        "title": "Take Action",
+        "description": "Make informed trading decisions based on anomaly insights and receive timely market alerts.",
         "image": {
           "src": "/imgs/features/8.png"
         }
@@ -221,37 +214,37 @@
   },
   "feature": {
     "name": "feature",
-    "title": "Key Features of ShipAny",
-    "description": "Everything you need to launch your AI SaaS startup quickly and efficiently.",
+    "title": "Key Features of AlphaOption",
+    "description": "Everything you need for comprehensive stock market anomaly detection and analysis.",
     "items": [
       {
-        "title": "Next.js Boilerplate",
-        "description": "Production-ready Next.js templates with SEO-friendly structure and i18n support.",
+        "title": "Real-Time Detection",
+        "description": "Advanced algorithms continuously monitor market data for unusual patterns and price movements.",
         "icon": "RiNextjsFill"
       },
       {
-        "title": "Authentication & Payments",
-        "description": "Integrated Google OAuth, one-tap login, and Stripe payment processing.",
+        "title": "Categorized Analysis",
+        "description": "Search and filter stocks by anomaly types: volatility, volume, momentum, and technical patterns.",
         "icon": "RiKey2Fill"
       },
       {
-        "title": "Data Infrastructure",
-        "description": "Built-in Supabase integration for reliable and scalable data storage.",
+        "title": "Historical Data",
+        "description": "Access comprehensive historical anomaly data and backtesting capabilities for strategy development.",
         "icon": "RiDatabase2Line"
       },
       {
-        "title": "One-Click Deployment",
-        "description": "Seamless deployment to Vercel or Cloudflare with automated setup.",
+        "title": "Custom Alerts",
+        "description": "Configure personalized alerts for specific stocks, sectors, or anomaly types with flexible notification options.",
         "icon": "RiCloudy2Fill"
       },
       {
-        "title": "Business Analytics",
-        "description": "Integrated Google Analytics and Search Console for tracking growth.",
+        "title": "Performance Analytics",
+        "description": "Track anomaly prediction accuracy and analyze the performance of your trading strategies.",
         "icon": "RiBarChart2Line"
       },
       {
-        "title": "AI-Ready Infrastructure",
-        "description": "Pre-configured AI integration with built-in credits system and API sales.",
+        "title": "API Integration",
+        "description": "Seamless integration with trading platforms and portfolio management systems via REST API.",
         "icon": "RiRobot2Line"
       }
     ]
@@ -259,7 +252,7 @@
   "stats": {
     "name": "stats",
     "label": "Stats",
-    "title": "People Love ShipAny",
+    "title": "People Love AlphaOption",
     "description": "for it's easy to use and fast to ship.",
     "icon": "FaRegHeart",
     "items": [
@@ -283,14 +276,14 @@
   "testimonial": {
     "name": "testimonial",
     "label": "Testimonial",
-    "title": "What Users Say About ShipAny",
-    "description": "Hear from developers and founders who launched their AI startups with ShipAny.",
+    "title": "What Users Say About AlphaOption",
+    "description": "Hear from developers and founders who launched their AI startups with AlphaOption.",
     "icon": "GoThumbsup",
     "items": [
       {
         "title": "David Chen",
         "label": "Founder of AIWallpaper.shop",
-        "description": "ShipAny saved us months of development time. We launched our AI wallpaper business in just 2 days and got our first paying customer within a week!",
+        "description": "AlphaOption saved us months of development time. We launched our AI wallpaper business in just 2 days and got our first paying customer within a week!",
         "image": {
           "src": "/imgs/users/1.png"
         }
@@ -306,7 +299,7 @@
       {
         "title": "Marcus Thompson",
         "label": "Solo Developer",
-        "description": "As a solo developer, ShipAny gave me everything I needed - auth, payments, AI integration, and beautiful UI. Launched my SaaS in a weekend!",
+        "description": "As a solo developer, AlphaOption gave me everything I needed - auth, payments, AI integration, and beautiful UI. Launched my SaaS in a weekend!",
         "image": {
           "src": "/imgs/users/3.png"
         }
@@ -322,7 +315,7 @@
       {
         "title": "James Wilson",
         "label": "Tech Lead at GPTs.works",
-        "description": "ShipAny's infrastructure is rock-solid. We scaled from 0 to 10k users without touching the backend. Best investment for our AI startup.",
+        "description": "AlphaOption's infrastructure is rock-solid. We scaled from 0 to 10k users without touching the backend. Best investment for our AI startup.",
         "image": {
           "src": "/imgs/users/5.png"
         }
@@ -330,7 +323,7 @@
       {
         "title": "Anna Zhang",
         "label": "Startup Founder",
-        "description": "From idea to launch in 3 days! ShipAny's templates and deployment tools made it possible to test our AI business concept incredibly fast.",
+        "description": "From idea to launch in 3 days! AlphaOption's templates and deployment tools made it possible to test our AI business concept incredibly fast.",
         "image": {
           "src": "/imgs/users/6.png"
         }
@@ -340,49 +333,49 @@
   "faq": {
     "name": "faq",
     "label": "FAQ",
-    "title": "Frequently Asked Questions About ShipAny",
+    "title": "Frequently Asked Questions About AlphaOption",
     "description": "Have another question? Contact us on Discord or by email.",
     "items": [
       {
-        "title": "What exactly is ShipAny and how does it work?",
-        "description": "ShipAny is a comprehensive NextJS boilerplate designed specifically for building AI SaaS startups. It provides ready-to-use templates, infrastructure setup, and deployment tools that help you launch your AI business in hours instead of days."
+        "title": "What exactly is AlphaOption and how does it work?",
+        "description": "AlphaOption is a comprehensive NextJS boilerplate designed specifically for building AI SaaS startups. It provides ready-to-use templates, infrastructure setup, and deployment tools that help you launch your AI business in hours instead of days."
       },
       {
-        "title": "Do I need advanced technical skills to use ShipAny?",
-        "description": "While basic programming knowledge is helpful, ShipAny is designed to be developer-friendly. Our templates and documentation make it easy to get started, even if you're not an expert in AI or cloud infrastructure."
+        "title": "Do I need advanced technical skills to use AlphaOption?",
+        "description": "While basic programming knowledge is helpful, AlphaOption is designed to be developer-friendly. Our templates and documentation make it easy to get started, even if you're not an expert in AI or cloud infrastructure."
       },
       {
-        "title": "What types of AI SaaS can I build with ShipAny?",
-        "description": "ShipAny supports a wide range of AI applications, from content generation to data analysis tools. Our templates cover popular use cases like AI chatbots, content generators, image processing apps, and more."
+        "title": "What types of AI SaaS can I build with AlphaOption?",
+        "description": "AlphaOption supports a wide range of AI applications, from content generation to data analysis tools. Our templates cover popular use cases like AI chatbots, content generators, image processing apps, and more."
       },
       {
-        "title": "How long does it typically take to launch with ShipAny?",
-        "description": "With ShipAny, you can have a working prototype in hours and a production-ready application in hours. Our one-click deployment and pre-configured infrastructure significantly reduce the traditional months-long development cycle."
+        "title": "How long does it typically take to launch with AlphaOption?",
+        "description": "With AlphaOption, you can have a working prototype in hours and a production-ready application in hours. Our one-click deployment and pre-configured infrastructure significantly reduce the traditional months-long development cycle."
       },
       {
-        "title": "What's included in the ShipAny infrastructure?",
-        "description": "ShipAny provides a complete infrastructure stack including authentication, database setup, API integration, payment processing, and scalable cloud deployment. Everything is pre-configured following industry best practices."
+        "title": "What's included in the AlphaOption infrastructure?",
+        "description": "AlphaOption provides a complete infrastructure stack including authentication, database setup, API integration, payment processing, and scalable cloud deployment. Everything is pre-configured following industry best practices."
       },
       {
         "title": "Can I customize the templates to match my brand?",
-        "description": "Absolutely! All ShipAny templates are fully customizable. You can modify the design, features, and functionality to match your brand identity and specific business requirements while maintaining the robust underlying infrastructure."
+        "description": "Absolutely! All AlphaOption templates are fully customizable. You can modify the design, features, and functionality to match your brand identity and specific business requirements while maintaining the robust underlying infrastructure."
       }
     ]
   },
   "cta": {
     "name": "cta",
     "title": "Ship your first AI SaaS Startup",
-    "description": "Start from here, ship with ShipAny.",
+    "description": "Start from here, ship with AlphaOption.",
     "buttons": [
       {
-        "title": "Get ShipAny",
-        "url": "https://shipany.ai",
+        "title": "Get AlphaOption",
+        "url": "https://AlphaOption.ai",
         "target": "_blank",
         "icon": "GoArrowUpRight"
       },
       {
         "title": "Read Document",
-        "url": "https://docs.shipany.ai",
+        "url": "https://docs.AlphaOption.ai",
         "target": "_blank",
         "variant": "outline"
       }
@@ -391,15 +384,15 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "ShipAny",
-      "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
+      "title": "AlphaOption",
+      "description": "AlphaOption ",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny"
+        "alt": "AlphaOption"
       },
       "url": "/"
     },
-    "copyright": "© 2025 • ShipAny All rights reserved.",
+    "copyright": "© 2025 • AlphaOption All rights reserved.",
     "nav": {
       "items": [
         {
@@ -427,17 +420,17 @@
           "children": [
             {
               "title": "Documents",
-              "url": "https://docs.shipany.ai",
+              "url": "https://docs.AlphaOption.ai",
               "target": "_blank"
             },
             {
               "title": "Components",
-              "url": "https://shipany.ai/components",
+              "url": "https://AlphaOption.ai/components",
               "target": "_blank"
             },
             {
               "title": "Templates",
-              "url": "https://shipany.ai/templates",
+              "url": "https://AlphaOption.ai/templates",
               "target": "_blank"
             }
           ]
@@ -469,13 +462,13 @@
         {
           "title": "X",
           "icon": "RiTwitterXFill",
-          "url": "https://x.com/shipanyai",
+          "url": "https://x.com/AlphaOptionai",
           "target": "_blank"
         },
         {
           "title": "Github",
           "icon": "RiGithubFill",
-          "url": "https://github.com/shipanyai",
+          "url": "https://github.com/AlphaOptionai",
           "target": "_blank"
         },
         {
@@ -487,7 +480,7 @@
         {
           "title": "Email",
           "icon": "RiMailLine",
-          "url": "mailto:support@shipany.codes",
+          "url": "mailto:support@AlphaOption.codes",
           "target": "_self"
         }
       ]

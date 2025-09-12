@@ -36,7 +36,7 @@ export default function Footer({ footer }: { footer: FooterType }) {
                   )}
                 </div>
               )}
-              {footer.social && (
+              {/* {footer.social && (
                 <ul className="flex items-center space-x-6 text-muted-foreground">
                   {footer.social.items?.map((item, i) => (
                     <li key={i} className="font-medium hover:text-primary">
@@ -48,9 +48,9 @@ export default function Footer({ footer }: { footer: FooterType }) {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </div>
-            <div className="grid grid-cols-3 gap-6 lg:gap-20">
+            {/* <div className="grid grid-cols-3 gap-6 lg:gap-20">
               {footer.nav?.items?.map((item, i) => (
                 <div key={i}>
                   <p className="mb-6 font-bold">{item.title}</p>
@@ -65,7 +65,7 @@ export default function Footer({ footer }: { footer: FooterType }) {
                   </ul>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div className="mt-8 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
             {footer.copyright && (
@@ -73,17 +73,17 @@ export default function Footer({ footer }: { footer: FooterType }) {
                 {footer.copyright}
                 {process.env.NEXT_PUBLIC_SHOW_POWERED_BY === "false" ? null : (
                   <a
-                    href="https://shipany.ai"
+                    href="https://AlphaOption.ai"
                     target="_blank"
                     className="px-2 text-primary"
                   >
-                    build with ShipAny
+
                   </a>
                 )}
               </p>
             )}
 
-            {footer.agreement && (
+            {/* {footer.agreement && (
               <ul className="flex justify-center gap-4 lg:justify-start">
                 {footer.agreement.items?.map((item, i) => (
                   <li key={i} className="hover:text-primary">
@@ -93,7 +93,7 @@ export default function Footer({ footer }: { footer: FooterType }) {
                   </li>
                 ))}
               </ul>
-            )}
+            )} */}
           </div>
         </footer>
       </div>

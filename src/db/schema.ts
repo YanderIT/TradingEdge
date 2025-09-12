@@ -8,6 +8,8 @@ import {
   timestamp,
   unique,
   uniqueIndex,
+  decimal,
+  date,
 } from "drizzle-orm/pg-core";
 
 // Users table
@@ -141,4 +143,16 @@ export const feedbacks = pgTable("feedbacks", {
   user_uuid: varchar({ length: 255 }),
   content: text(),
   rating: integer(),
+});
+
+// Site Access Keys table
+export const siteAccessKeys = pgTable("site_access_keys", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  access_key: varchar({ length: 255 }).notNull().unique(),
+  title: varchar({ length: 100 }),
+  status: varchar({ length: 50 }).notNull().default("active"),
+  created_by: varchar({ length: 255 }),
+  expires_at: timestamp({ withTimezone: true }),
+  created_at: timestamp({ withTimezone: true }),
+  used_count: integer().notNull().default(0),
 });

@@ -17,23 +17,41 @@ export default function TableComponent({
   columns,
   data,
   emptyMessage,
+  variant,
 }: {
   columns?: TableColumn[];
   data?: any[];
   emptyMessage?: string;
+  variant?: "bullish" | "bearish" | "neutral";
 }) {
   if (!columns) {
     columns = [];
   }
 
+  const getRowBgClass = (rowIndex: number): string => {
+    if (variant === "bullish") {
+      // Green alternating rows
+      return rowIndex % 2 === 0 ? "bg-[#d1e7dd]" : "bg-[#c7dbd2]";
+    }
+    if (variant === "bearish") {
+      // Red alternating rows
+      return rowIndex % 2 === 0 ? "bg-[#F7D7DA]" : "bg-[#eccccf]";
+    }
+    // Neutral gray alternating rows
+    return rowIndex % 2 === 0 ? "bg-muted/40" : "bg-muted/20";
+  };
+
   return (
     <Table className="w-full">
-      <TableHeader className="">
+      <TableHeader className="[&_tr]:border-b-2 [&_tr]:border-black">
         <TableRow className="rounded-md">
           {columns &&
             columns.map((item: TableColumn, idx: number) => {
               return (
-                <TableHead key={idx} className={item.className}>
+                <TableHead
+                  key={idx}
+                  className={`${item.className || ""} font-bold text-black`}
+                >
                   {item.title}
                 </TableHead>
               );
@@ -43,7 +61,7 @@ export default function TableComponent({
       <TableBody>
         {data && data.length > 0 ? (
           data.map((item: any, idx: number) => (
-            <TableRow key={idx} className="h-16">
+            <TableRow key={idx} className={`h-12 ${getRowBgClass(idx)}`}>
               {columns &&
                 columns.map((column: TableColumn, iidx: number) => {
                   const value = item[column.name as keyof typeof item];

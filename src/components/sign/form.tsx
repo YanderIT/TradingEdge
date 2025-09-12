@@ -15,12 +15,15 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 
 export default function SignForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const t = useTranslations();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -40,7 +43,7 @@ export default function SignForm({
                 <Button
                   variant="outline"
                   className="w-full"
-                  onClick={() => signIn("google")}
+                  onClick={() => signIn("google", { callbackUrl })}
                 >
                   <SiGoogle className="w-4 h-4" />
                   {t("sign_modal.google_sign_in")}
@@ -50,7 +53,7 @@ export default function SignForm({
                 <Button
                   variant="outline"
                   className="w-full"
-                  onClick={() => signIn("github")}
+                  onClick={() => signIn("github", { callbackUrl })}
                 >
                   <SiGithub className="w-4 h-4" />
                   {t("sign_modal.github_sign_in")}
@@ -102,7 +105,7 @@ export default function SignForm({
           </div>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
+      {/* <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
         By clicking continue, you agree to our{" "}
         <a href="/terms-of-service" target="_blank">
           Terms of Service
@@ -112,7 +115,7 @@ export default function SignForm({
           Privacy Policy
         </a>
         .
-      </div>
+      </div> */}
     </div>
   );
 }

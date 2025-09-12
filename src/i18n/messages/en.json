@@ -1,17 +1,34 @@
 {
   "metadata": {
-    "title": "Ship Any AI SaaS Startups in hours | ShipAny",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups, Ship Fast with a variety of templates and components.",
-    "keywords": "ShipAny, AI SaaS Boilerplate, NextJS Boilerplate"
+    "title": "Stock Market Anomaly Detection & Analysis | AlphaOption",
+    "description": "AlphaOption is a comprehensive stock market anomaly detection platform. Track unusual market patterns, categorize stocks by anomaly types, and get real-time alerts.",
+    "keywords": "AlphaOption, Stock Anomaly Detection, Market Analysis, Stock Screening, Trading Alerts"
   },
   "user": {
     "sign_in": "Sign In",
     "sign_out": "Sign Out",
-    "credits": "Credits",
+    "credits": "Data Credits",
     "api_keys": "API Keys",
     "my_orders": "My Orders",
     "user_center": "User Center",
     "admin_system": "Admin System"
+  },
+  "access_key": {
+    "title": "Please sign in",
+    "description": "Enter your access token to continue",
+    "placeholder": "Auth Token",
+    "buttons": {
+      "verify": "Confirm Identity",
+      "verifying": "Verifying..."
+    },
+    "success": {
+      "verified": "Access granted! Redirecting..."
+    },
+    "error": {
+      "empty_key": "Please enter your access token",
+      "invalid_key": "Invalid access token. Please try again.",
+      "network": "Network error. Please try again."
+    }
   },
   "sign_modal": {
     "sign_in_title": "Sign In",
@@ -32,9 +49,26 @@
     "close_title": "Close",
     "cancel_title": "Cancel"
   },
+  "trading": {
+    "title": "Trading Flow",
+    "description": "Real-time unusual options flow analysis",
+    "top_premium": "Top Premium",
+    "top_bullish": "Top Bullish", 
+    "top_bearish": "Top Bearish",
+    "calls_bought": "Calls Bought",
+    "puts_bought": "Puts Bought",
+    "table": {
+      "ticker": "Ticker",
+      "strike": "Strike",
+      "exp": "Exp",
+      "premium": "Premium"
+    },
+    "no_data": "No trading data available",
+    "refresh": "Refresh"
+  },
   "my_orders": {
     "title": "My Orders",
-    "description": "orders paid with ShipAny.",
+    "description": "Data subscription orders with AlphaOption.",
     "no_orders": "No orders found",
     "tip": "",
     "activate_order": "Activate Order",
@@ -58,13 +92,13 @@
   },
   "my_credits": {
     "title": "My Credits",
-    "left_tip": "left credits: {left_credits}",
-    "no_credits": "No credits records",
+    "left_tip": "remaining data credits: {left_credits}",
+    "no_credits": "No data credit records",
     "recharge": "Recharge",
     "table": {
       "trans_no": "Trans No",
       "trans_type": "Trans Type",
-      "credits": "Credits",
+      "credits": "Data Credits",
       "updated_at": "Updated At",
       "status": "Status",
       "expired_at": "Expired At",
@@ -89,7 +123,7 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "News, resources, and updates about ShipAny",
+    "description": "Market insights, anomaly analysis, and updates about AlphaOption",
     "read_more_text": "Read More",
     "no_content": "No content",
     "all": "All",
@@ -104,7 +138,7 @@
     "edit_invite_link": "Edit Invite Link",
     "copy_invite_link": "Copy Invite Link",
     "invite_code": "Invite Code",
-    "invite_tip": "Invite 1 friend to buy ShipAny, reward $50.",
+    "invite_tip": "Invite 1 friend to buy AlphaOption, reward $50.",
     "invite_balance": "Invite Reward Balance",
     "total_invite_count": "Total Invite Count",
     "total_paid_count": "Total Paid Count",
@@ -112,7 +146,7 @@
     "update_invite_code": "Set Invite Code",
     "update_invite_code_tip": "Input your custom invite code",
     "update_invite_button": "Save",
-    "no_orders": "You can't invite others before you bought ShipAny",
+    "no_orders": "You can't invite others before you bought AlphaOption",
     "no_affiliates": "You're not allowed to invite others, please contact us to apply for permission.",
     "table": {
       "invite_time": "Invite Time",
@@ -130,7 +164,7 @@
     "submit": "Submit",
     "loading": "Submitting...",
     "contact_tip": "Other ways to contact us",
-    "rating_tip": "How do you feel about ShipAny?",
+    "rating_tip": "How do you feel about AlphaOption?",
     "placeholder": "Leave your words here..."
   }
 }

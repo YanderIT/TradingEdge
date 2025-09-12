@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Button as ButtonType } from "@/types/blocks/base";
 import Icon from "@/components/icon";
@@ -12,15 +14,26 @@ export default function Toolbar({ items }: { items?: ButtonType[] }) {
           variant={item.variant}
           size="sm"
           className={item.className}
+          onClick={item.url ? undefined : () => {
+            // Handle button clicks for action buttons (like refresh)
+            console.log(`Clicked: ${item.title}`);
+          }}
         >
-          <Link
-            href={item.url as any}
-            target={item.target}
-            className="flex items-center gap-1"
-          >
-            {item.icon && <Icon name={item.icon} />}
-            {item.title}
-          </Link>
+          {item.url ? (
+            <Link
+              href={item.url}
+              target={item.target}
+              className="flex items-center gap-1"
+            >
+              {item.icon && <Icon name={item.icon} />}
+              {item.title}
+            </Link>
+          ) : (
+            <span className="flex items-center gap-1">
+              {item.icon && <Icon name={item.icon} />}
+              {item.title}
+            </span>
+          )}
         </Button>
       ))}
     </div>

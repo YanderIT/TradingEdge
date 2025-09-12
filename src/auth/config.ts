@@ -137,7 +137,7 @@ export const authOptions: NextAuthConfig = {
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
+      return baseUrl + "/trading";
     },
     async session({ session, token, user }) {
       if (token && token.user && token.user) {

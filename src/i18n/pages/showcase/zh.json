@@ -1,12 +1,12 @@
 {
   "showcase": {
     "name": "showcase",
-    "title": "使用 ShipAny 构建的 AI SaaS 创业项目",
-    "description": "易于使用，快速发布。",
+    "title": "股票异常检测成功案例",
+    "description": "成功异常预测和市场洞察的实际例子。",
     "items": [
       {
-        "title": "ThinkAny",
-        "description": "AI 搜索引擎",
+        "title": "特斯拉异常预警",
+        "description": "成交量尖峰检测",
         "url": "https://thinkany.ai",
         "target": "_blank",
         "image": {
@@ -14,8 +14,8 @@
         }
       },
       {
-        "title": "HeyBeauty",
-        "description": "AI 虚拟试妆",
+        "title": "苹果价格模式",
+        "description": "技术模式突破",
         "url": "https://heybeauty.ai",
         "target": "_blank",
         "image": {
@@ -23,8 +23,8 @@
         }
       },
       {
-        "title": "AI Wallpaper",
-        "description": "AI 壁纸生成器",
+        "title": "英伟达动量变化",
+        "description": "动量异常预警",
         "url": "https://aiwallpaper.shop",
         "target": "_blank",
         "image": {
@@ -32,8 +32,8 @@
         }
       },
       {
-        "title": "AI Cover",
-        "description": "AI 封面生成器",
+        "title": "S&P500 波动性尖峰",
+        "description": "市场波动性警告",
         "url": "https://aicover.design",
         "target": "_blank",
         "image": {
@@ -41,8 +41,8 @@
         }
       },
       {
-        "title": "GPTs Works",
-        "description": "GPTs 目录",
+        "title": "亚马逊财报异常",
+        "description": "财报前成交量预警",
         "url": "https://gpts.works",
         "target": "_blank",
         "image": {

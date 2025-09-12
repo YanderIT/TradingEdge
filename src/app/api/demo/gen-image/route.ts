@@ -3,7 +3,6 @@ import { respData, respErr } from "@/lib/resp";
 
 import type { ImageModelV1 } from "@ai-sdk/provider";
 import { getUuid } from "@/lib/hash";
-import { kling } from "@/aisdk/kling";
 import { newStorage } from "@/lib/storage";
 import { openai } from "@ai-sdk/openai";
 import { replicate } from "@ai-sdk/replicate";
@@ -36,12 +35,6 @@ export async function POST(req: Request) {
           },
         };
         break;
-      case "kling":
-        imageModel = kling.image(model);
-        providerOptions = {
-          kling: {},
-        };
-        break;
       default:
         return respErr("invalid provider");
     }
@@ -65,7 +58,7 @@ export async function POST(req: Request) {
     const processedImages = await Promise.all(
       images.map(async (image, index) => {
         const filename = `${provider}_image_${batch}_${index}.png`;
-        const key = `shipany/${filename}`;
+        const key = `AlphaOption/${filename}`;
         const body = Buffer.from(image.base64, "base64");
 
         try {

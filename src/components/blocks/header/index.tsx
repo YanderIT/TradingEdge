@@ -61,7 +61,7 @@ export default function Header({ header }: { header: HeaderType }) {
               )}
             </Link>
             <div className="flex items-center">
-              <NavigationMenu>
+              {/* <NavigationMenu>
                 <NavigationMenuList>
                   {header.nav?.items?.map((item, i) => {
                     if (item.children && item.children.length > 0) {
@@ -140,14 +140,14 @@ export default function Header({ header }: { header: HeaderType }) {
                     );
                   })}
                 </NavigationMenuList>
-              </NavigationMenu>
+              </NavigationMenu> */}
             </div>
           </div>
           <div className="shrink-0 flex gap-2 items-center">
             {header.show_locale && <LocaleToggle />}
             {header.show_theme && <ThemeToggle />}
 
-            {header.buttons?.map((item, i) => {
+            {/* {header.buttons?.map((item, i) => {
               return (
                 <Button key={i} variant={item.variant}>
                   <Link
@@ -162,8 +162,8 @@ export default function Header({ header }: { header: HeaderType }) {
                   </Link>
                 </Button>
               );
-            })}
-            {header.show_sign && <SignToggle />}
+            })} */}
+            {/* {header.show_sign && <SignToggle />} */}
           </div>
         </nav>
 
