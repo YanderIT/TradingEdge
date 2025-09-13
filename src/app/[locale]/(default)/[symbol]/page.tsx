@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -9,12 +10,23 @@ export const dynamicParams = true;
 
 export default async function SymbolPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; symbol: string }>;
+  searchParams: Promise<{ period?: string }>;
 }) {
   const { locale, symbol } = await params;
+  const searchParamsData = await searchParams;
+  const period = searchParamsData?.period || "1w"; // default 1 Week
   setRequestLocale(locale);
   const t = await getTranslations();
+
+  const periodButtons: { key: string; label: string }[] = [
+    { key: "1w", label: "1 Week" },
+    { key: "2w", label: "2 Weeks" },
+    { key: "1m", label: "1 Month" },
+    { key: "3m", label: "3 Months" },
+  ];
 
   const rows = [
     { date: "9/11/25", type: "Buy Call", sym: symbol, strike: "157.50 (1%)", exp: "9/26/25", premium: "1.9M" },
@@ -52,10 +64,18 @@ export default async function SymbolPage({
 
       {/* Range buttons */}
       <div className="flex items-center gap-2">
-        <button className="px-3 py-1 text-sm rounded bg-primary text-primary-foreground">1 Week</button>
-        <button className="px-3 py-1 text-sm rounded border">2 Weeks</button>
-        <button className="px-3 py-1 text-sm rounded border">1 Month</button>
-        <button className="px-3 py-1 text-sm rounded border">3 Months</button>
+        {periodButtons.map((p) => {
+          const active = p.key === period;
+          return (
+            <Link
+              key={p.key}
+              href={`/${locale}/${symbol}?period=${p.key}`}
+              className={`px-3 py-1 text-sm rounded ${active ? "bg-primary text-primary-foreground" : "border hover:bg-muted"}`}
+            >
+              {p.label}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="bg-card rounded-lg border">

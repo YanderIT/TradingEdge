@@ -1,6 +1,6 @@
 import DataCards from "@/components/blocks/data-cards";
-import DataCharts from "@/components/blocks/data-charts";
-import Header from "@/components/dashboard/header";
+// import DataCharts from "@/components/blocks/data-charts";
+import Header from "@/components/blocks/header";
 import { getOrderCountByDate, getPaidOrdersTotal } from "@/models/order";
 import { getUserCountByDate, getUsersTotal } from "@/models/user";
 import { getFeedbacksTotal } from "@/models/feedback";
@@ -67,12 +67,12 @@ export default async function () {
 
   return (
     <div className="flex flex-col gap-4">
-      <Header />
+      <Header header={{ disabled: true }} />
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
             <DataCards dataCards={dataCards} />
-            <div className="px-4 lg:px-6">
+            {/* <div className="px-4 lg:px-6">
               <DataCharts
                 data={data}
                 fields={fields}
@@ -80,7 +80,7 @@ export default async function () {
                 description="Daily users and orders data"
                 defaultTimeRange="90d"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

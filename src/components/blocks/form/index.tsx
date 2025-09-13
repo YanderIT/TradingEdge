@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/icon";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
-import MarkdownEditor from "@/components/blocks/mdeditor";
+// import MarkdownEditor from "@/components/blocks/mdeditor";
 
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
@@ -187,15 +187,17 @@ export default function ({
                         </SelectContent>
                       </Select>
                     ) : item.type === "markdown_editor" ? (
-                      <MarkdownEditor
+                      <Textarea
+                        placeholder={item.placeholder}
                         value={field.value}
-                        onChange={field.onChange}
+                        onChange={(e) => field.onChange(e.target.value)}
                       />
                     ) : item.type === "editor" ||
                       item.type === "richtext_editor" ? (
-                      <MarkdownEditor
+                      <Textarea
+                        placeholder={item.placeholder}
                         value={field.value}
-                        onChange={field.onChange}
+                        onChange={(e) => field.onChange(e.target.value)}
                       />
                     ) : (
                       <Input

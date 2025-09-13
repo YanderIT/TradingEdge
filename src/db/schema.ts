@@ -10,6 +10,8 @@ import {
   uniqueIndex,
   decimal,
   date,
+  primaryKey,
+  doublePrecision,
 } from "drizzle-orm/pg-core";
 
 // Users table
@@ -156,3 +158,41 @@ export const siteAccessKeys = pgTable("site_access_keys", {
   created_at: timestamp({ withTimezone: true }),
   used_count: integer().notNull().default(0),
 });
+
+// Ranking Data table
+export const rankingData = pgTable(
+  "ranking_data",
+  {
+    dt: date().notNull(),
+    list_type: varchar({ length: 255 }).notNull(),
+    window: varchar({ length: 255 }).notNull(),
+    rank: integer().notNull(),
+    ticker: varchar({ length: 255 }).notNull(),
+  },
+  (table) => [
+    primaryKey({
+      columns: [table.dt, table.list_type, table.window, table.rank, table.ticker],
+    }),
+  ]
+);
+
+// Flow Data table
+export const flowData = pgTable(
+  "flow_data",
+  {
+    dt: date().notNull(),
+    side: varchar({ length: 255 }).notNull(),
+    ticker: varchar({ length: 255 }).notNull(),
+    strike: doublePrecision().notNull(),
+    moneyness_pct: doublePrecision(),
+    expiration: date(),
+    premium_usd: doublePrecision(),
+    largest_flag: boolean(),
+    first_flag: boolean(),
+  },
+  (table) => [
+    primaryKey({
+      columns: [table.dt, table.side, table.ticker, table.strike],
+    }),
+  ]
+);

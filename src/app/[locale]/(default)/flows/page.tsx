@@ -20,7 +20,7 @@ export default async function FlowsPage({
   const { locale } = await params;
   const searchParamsData = await searchParams;
   const tab = searchParamsData?.tab || "premium";
-  const period = searchParamsData?.period || "3d"; // default 3 Days
+  const period = searchParamsData?.period || "1w"; // default 1 Week
   setRequestLocale(locale);
   const t = await getTranslations();
 
@@ -30,8 +30,6 @@ export default async function FlowsPage({
       : "border hover:bg-muted";
 
   const periodButtons: { key: string; label: string }[] = [
-    { key: "1d", label: "1 Day" },
-    { key: "3d", label: "3 Days" },
     { key: "1w", label: "1 Week" },
     { key: "2w", label: "2 Weeks" },
     { key: "1m", label: "1 Month" },
@@ -57,14 +55,9 @@ export default async function FlowsPage({
     { name: "bear", title: "Bear", className: "text-red-600" },
   ];
 
-  const data = [
-    { symbol: "TSLA", netScore: 38, netPremium: "228.1M", bull: "262.1M", bear: "34.1M" },
-    { symbol: "PDD", netScore: 29, netPremium: "167.8M", bull: "170.7M", bear: "2.9M" },
-    { symbol: "META", netScore: 38, netPremium: "142.0M", bull: "157.7M", bear: "15.7M" },
-    { symbol: "MSTR", netScore: 41, netPremium: "132.8M", bull: "144.6M", bear: "11.8M" },
-    { symbol: "AAPL", netScore: 24, netPremium: "122.9M", bull: "138.1M", bear: "15.2M" },
-    { symbol: "NVDA", netScore: 22, netPremium: "95.0M", bull: "197.1M", bear: "102.1M" },
-  ];
+  // TODO: Replace with actual aggregated data from flow_data table
+  // This would require aggregating by ticker and calculating bull/bear metrics
+  const data = []; // Empty for now - needs implementation
 
   const table: TableSlotType = {
     title: "Total",

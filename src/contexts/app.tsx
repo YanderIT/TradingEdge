@@ -12,7 +12,7 @@ import { cacheGet, cacheRemove } from "@/lib/cache";
 import { CacheKey } from "@/services/constant";
 import { ContextValue } from "@/types/context";
 import { User } from "@/types/user";
-import moment from "moment";
+// Replaced moment with native Date methods
 import useOneTapLogin from "@/hooks/useOneTapLogin";
 import { useSession } from "next-auth/react";
 import { isAuthEnabled, isGoogleOneTapEnabled } from "@/lib/auth";
@@ -70,8 +70,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
 
-      const userCreatedAt = moment(user.created_at).unix();
-      const currentTime = moment().unix();
+      const userCreatedAt = Math.floor(new Date(user.created_at || new Date()).getTime() / 1000);
+      const currentTime = Math.floor(Date.now() / 1000);
       const timeDiff = Number(currentTime - userCreatedAt);
 
       if (timeDiff <= 0 || timeDiff > 7200) {

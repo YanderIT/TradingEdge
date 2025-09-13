@@ -4,7 +4,7 @@ import { Table as TableSlotType } from "@/types/slots/table";
 import { getTranslations } from "next-intl/server";
 import { getUserApikeys, ApikeyStatus } from "@/models/apikey";
 import { getUserUuid } from "@/services/user";
-import moment from "moment";
+// Replaced moment with native Date formatting
 import { Badge } from "@/components/ui/badge";
 
 export default async function () {
@@ -48,7 +48,13 @@ export default async function () {
         title: t("api_keys.table.created_at"),
         name: "created_at",
         callback: (item: any) => {
-          return moment(item.created_at).fromNow();
+          const date = new Date(item.created_at);
+          const now = new Date();
+          const diff = now.getTime() - date.getTime();
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          if (days === 0) return 'today';
+          if (days === 1) return '1 day ago';
+          return `${days} days ago`;
         },
       },
     ],

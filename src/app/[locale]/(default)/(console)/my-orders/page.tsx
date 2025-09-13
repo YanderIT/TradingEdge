@@ -5,7 +5,7 @@ import { TableColumn } from "@/types/blocks/table";
 import TableSlot from "@/components/console/slots/table";
 import { Table as TableSlotType } from "@/types/slots/table";
 import { getTranslations } from "next-intl/server";
-import moment from "moment";
+// Replaced moment with native Date formatting
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getStripeBilling } from "@/services/order";
@@ -57,7 +57,10 @@ export default async function () {
       name: "paid_at",
       title: t("my_orders.table.paid_at"),
       callback: (item: any) =>
-        moment(item.paid_at).format("YYYY-MM-DD HH:mm:ss"),
+        new Date(item.paid_at).toLocaleString('sv-SE', { 
+          year: 'numeric', month: '2-digit', day: '2-digit',
+          hour: '2-digit', minute: '2-digit', second: '2-digit'
+        }).replace('T', ' '),
     },
     {
       callback: async (item: any) => {

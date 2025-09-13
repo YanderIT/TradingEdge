@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/dashboard/layout";
+import ConsoleLayout from "@/components/console/layout";
 import Empty from "@/components/blocks/empty";
 import { ReactNode } from "react";
 import { Sidebar } from "@/types/blocks/sidebar";
@@ -110,5 +110,5 @@ export default async function AdminLayout({
     },
   };
 
-  return <DashboardLayout sidebar={sidebar}>{children}</DashboardLayout>;
+  return <ConsoleLayout sidebar={sidebar}>{children}</ConsoleLayout>;
 }

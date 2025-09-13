@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import moment from 'moment';
+// Replaced moment with native Date formatting
 
 interface SiteAccessKey {
   id: number;
@@ -263,19 +263,19 @@ export default function SiteKeysPage() {
                       <div className="space-y-1">
                         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Created</p>
                         <p className="text-sm">
-                          {key.created_at ? moment(key.created_at).format('MMM DD, YYYY') : 'N/A'}
+                          {key.created_at ? new Date(key.created_at).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) : 'N/A'}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {key.created_at ? moment(key.created_at).format('HH:mm:ss') : ''}
+                          {key.created_at ? new Date(key.created_at).toLocaleTimeString('en-US', { hour12: false }) : ''}
                         </p>
                       </div>
                       <div className="space-y-1">
                         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Expires</p>
                         <p className="text-sm">
-                          {key.expires_at ? moment(key.expires_at).format('MMM DD, YYYY') : 'Never'}
+                          {key.expires_at ? new Date(key.expires_at).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) : 'Never'}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {key.expires_at ? moment(key.expires_at).format('HH:mm:ss') : 'No expiration'}
+                          {key.expires_at ? new Date(key.expires_at).toLocaleTimeString('en-US', { hour12: false }) : 'No expiration'}
                         </p>
                       </div>
                       <div className="space-y-1">

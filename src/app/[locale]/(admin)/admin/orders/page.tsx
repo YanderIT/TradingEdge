@@ -1,8 +1,8 @@
 import { TableColumn } from "@/types/blocks/table";
-import TableSlot from "@/components/dashboard/slots/table";
+import TableSlot from "@/components/console/slots/table";
 import { Table as TableSlotType } from "@/types/slots/table";
 import { getPaiedOrders } from "@/models/order";
-import moment from "moment";
+// Replaced moment with native Date formatting
 
 export default async function () {
   const orders = await getPaiedOrders(1, 50);
@@ -15,7 +15,10 @@ export default async function () {
     {
       name: "created_at",
       title: "Created At",
-      callback: (row) => moment(row.created_at).format("YYYY-MM-DD HH:mm:ss"),
+      callback: (row) => new Date(row.created_at).toLocaleString('sv-SE', { 
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      }).replace('T', ' '),
     },
   ];
 

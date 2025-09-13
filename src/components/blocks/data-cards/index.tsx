@@ -1,4 +1,4 @@
-import { IconTrendingDown } from "@tabler/icons-react";
+// Removed unused IconTrendingDown import
 
 import { Badge } from "@/components/ui/badge";
 import {

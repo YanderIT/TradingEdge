@@ -7,9 +7,9 @@ import { findUserByUuid } from "@/models/user";
 import { getSnowId } from "@/lib/hash";
 import { getPricingPage } from "@/services/page";
 import { PricingItem } from "@/types/blocks/pricing";
-import { newStripeClient } from "@/integrations/stripe";
+// import { newStripeClient } from "@/integrations/stripe";
 import { Order } from "@/types/order";
-import { newCreemClient } from "@/integrations/creem";
+// import { newCreemClient } from "@/integrations/creem";
 
 export async function POST(req: Request) {
   try {
@@ -163,74 +163,7 @@ async function stripeCheckout({
   locale: string;
   cancel_url: string;
 }) {
-  const intervals = ["month", "year"];
-  const is_subscription = intervals.includes(order.interval);
-
-  const client = newStripeClient();
-
-  let options: Stripe.Checkout.SessionCreateParams = {
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: order.currency,
-          product_data: {
-            name: order.product_name || "",
-          },
-          unit_amount: order.amount,
-          recurring: is_subscription
-            ? {
-                interval: order.interval as any,
-              }
-            : undefined,
-        },
-        quantity: 1,
-      },
-    ],
-    allow_promotion_codes: true,
-    metadata: {
-      project: process.env.NEXT_PUBLIC_PROJECT_NAME || "",
-      product_name: order.product_name || "",
-      order_no: order.order_no,
-      user_email: order.user_email,
-      credits: order.credits,
-      user_uuid: order.user_uuid,
-    },
-    mode: is_subscription ? "subscription" : "payment",
-    success_url: `${process.env.NEXT_PUBLIC_WEB_URL}/api/pay/callback/stripe?locale=${locale}&session_id={CHECKOUT_SESSION_ID}&order_no=${order.order_no}`,
-    cancel_url: cancel_url,
-  };
-
-  if (order.user_email) {
-    options.customer_email = order.user_email;
-  }
-
-  if (order.interval === "month" || order.interval === "year") {
-    options.subscription_data = {
-      metadata: options.metadata,
-    };
-  }
-
-  if (order.currency === "cny") {
-    options.payment_method_types = ["wechat_pay", "alipay", "card"];
-    options.payment_method_options = {
-      wechat_pay: {
-        client: "web",
-      },
-      alipay: {},
-    };
-  }
-
-  const session = await client.stripe().checkout.sessions.create(options);
-
-  // update order detail
-  await updateOrderSession(order.order_no, session.id, JSON.stringify(options));
-
-  return {
-    order_no: order.order_no,
-    session_id: session.id,
-    checkout_url: session.url,
-  };
+  return respErr('Stripe integration not available');
 }
 
 async function creemCheckout({
@@ -242,47 +175,5 @@ async function creemCheckout({
   locale: string;
   cancel_url: string;
 }) {
-  const client = newCreemClient();
-
-  let products = (process.env.CREEM_PRODUCTS as any) || {};
-  if (typeof products === "string") {
-    products = JSON.parse(products);
-  }
-  console.log("creem products: ", products);
-
-  const product_id = products[order.product_id || ""] || "";
-  if (!product_id) {
-    throw new Error("invalid product_id");
-  }
-
-  const success_url = `${process.env.NEXT_PUBLIC_WEB_URL}/api/pay/callback/creem?locale=${locale}`;
-
-  const result = await client.creem().createCheckout({
-    xApiKey: client.apiKey(),
-    createCheckoutRequest: {
-      productId: product_id,
-      requestId: order.order_no,
-      customer: {
-        email: order.user_email,
-      },
-      successUrl: success_url,
-      metadata: {
-        project: process.env.NEXT_PUBLIC_PROJECT_NAME || "",
-        product_name: order.product_name || "",
-        order_no: order.order_no,
-        user_email: order.user_email,
-        credits: order.credits,
-        user_uuid: order.user_uuid,
-      },
-    },
-  });
-
-  // update order detail
-  await updateOrderSession(order.order_no, result.id, JSON.stringify(result));
-
-  return {
-    order_no: order.order_no,
-    session_id: result.id,
-    checkout_url: result.checkoutUrl,
-  };
+  return { error: 'Creem integration not available' };
 }
