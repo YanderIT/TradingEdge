@@ -30,12 +30,16 @@ export default function TableComponent({
 
   const getRowBgClass = (rowIndex: number): string => {
     if (variant === "bullish") {
-      // Green alternating rows
-      return rowIndex % 2 === 0 ? "bg-[#d1e7dd]" : "bg-[#c7dbd2]";
+      // Green alternating rows - darker in dark mode
+      return rowIndex % 2 === 0 
+        ? "bg-[#d1e7dd] dark:bg-emerald-900/20" 
+        : "bg-[#c7dbd2] dark:bg-emerald-900/30";
     }
     if (variant === "bearish") {
-      // Red alternating rows
-      return rowIndex % 2 === 0 ? "bg-[#F7D7DA]" : "bg-[#eccccf]";
+      // Red alternating rows - darker in dark mode
+      return rowIndex % 2 === 0 
+        ? "bg-[#F7D7DA] dark:bg-red-900/20" 
+        : "bg-[#eccccf] dark:bg-red-900/30";
     }
     // Neutral gray alternating rows
     return rowIndex % 2 === 0 ? "bg-muted/40" : "bg-muted/20";
@@ -43,14 +47,14 @@ export default function TableComponent({
 
   return (
     <Table className="w-full">
-      <TableHeader className="[&_tr]:border-b-2 [&_tr]:border-black">
+      <TableHeader className="[&_tr]:border-b-2 [&_tr]:border-black [&_tr]:dark:border-white">
         <TableRow className="rounded-md">
           {columns &&
             columns.map((item: TableColumn, idx: number) => {
               return (
                 <TableHead
                   key={idx}
-                  className={`${item.className || ""} font-bold text-black`}
+                  className={`${item.className || ""} font-bold text-foreground`}
                 >
                   {item.title}
                 </TableHead>
@@ -61,7 +65,11 @@ export default function TableComponent({
       <TableBody>
         {data && data.length > 0 ? (
           data.map((item: any, idx: number) => (
-            <TableRow key={idx} className={`h-12 ${getRowBgClass(idx)}`}>
+            <TableRow key={idx} className={`h-12 ${getRowBgClass(idx)} ${
+              variant === "bullish" || variant === "bearish" 
+                ? "text-gray-900 dark:text-gray-100" 
+                : ""
+            }`}>
               {columns &&
                 columns.map((column: TableColumn, iidx: number) => {
                   const value = item[column.name as keyof typeof item];

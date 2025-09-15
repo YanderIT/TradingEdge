@@ -118,6 +118,10 @@
     "form": {
       "name": "Name",
       "name_placeholder": "API Key Name",
+      "custom_key": "Custom API Key (Optional)",
+      "custom_key_placeholder": "Enter your custom key (leave empty to auto-generate)",
+      "custom_key_help": "If provided, must be at least 8 characters long and contain only letters and numbers",
+      "enable_custom": "Use custom API key",
       "submit": "Submit"
     }
   },

@@ -116,7 +116,11 @@ export async function getPostsByLocaleAndCategory(
 }
 
 export async function getPostsTotal(): Promise<number> {
-  const total = await db().$count(posts);
-
-  return total;
+  try {
+    const total = await db().$count(posts);
+    return total || 0;
+  } catch (error) {
+    console.error("Error getting posts total:", error);
+    return 0;
+  }
 }

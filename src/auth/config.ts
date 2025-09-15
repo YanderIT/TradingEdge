@@ -9,6 +9,7 @@ import { getIsoTimestr } from "@/lib/time";
 import { getUuid } from "@/lib/hash";
 import { saveUser } from "@/services/user";
 import { handleSignInUser } from "./handler";
+import { setAdminAccessToken, isUserAdmin } from "@/services/siteAccess";
 
 let providers: Provider[] = [];
 
@@ -137,7 +138,7 @@ export const authOptions: NextAuthConfig = {
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl + "/trading";
+      return baseUrl + "/";
     },
     async session({ session, token, user }) {
       if (token && token.user && token.user) {
@@ -164,6 +165,15 @@ export const authOptions: NextAuthConfig = {
           avatar_url: userInfo.avatar_url,
           created_at: userInfo.created_at,
         };
+
+        // If user is admin and site access is enabled, set access token
+        if (userInfo.email && isUserAdmin(userInfo.email)) {
+          try {
+            await setAdminAccessToken(userInfo.email);
+          } catch (error) {
+            console.error("Failed to set admin access token:", error);
+          }
+        }
 
         return token;
       } catch (e) {

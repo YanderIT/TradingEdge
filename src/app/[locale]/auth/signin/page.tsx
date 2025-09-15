@@ -2,6 +2,7 @@ import SignForm from "@/components/sign/form";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { isAuthEnabled } from "@/lib/auth";
+import { isUserAdmin } from "@/services/siteAccess";
 
 export default async function SignInPage({
   searchParams,
@@ -15,6 +16,10 @@ export default async function SignInPage({
   const { callbackUrl } = await searchParams;
   const session = await auth();
   if (session) {
+    // Check if user is admin and redirect accordingly
+    if (session.user?.email && isUserAdmin(session.user.email)) {
+      return redirect(callbackUrl || "/admin");
+    }
     return redirect(callbackUrl || "/");
   }
 

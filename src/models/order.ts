@@ -197,27 +197,45 @@ export async function getPaiedOrders(
 }
 
 export async function getPaidOrdersTotal(): Promise<number | undefined> {
-  const total = await db().$count(orders);
-
-  return total;
+  try {
+    const total = await db().$count(orders);
+    return total || 0;
+  } catch (error) {
+    console.error("Error getting paid orders total:", error);
+    return 0;
+  }
 }
 
 export async function getOrderCountByDate(
   startTime: string,
   status?: string
 ): Promise<Map<string, number> | undefined> {
-  const data = await db()
-    .select({ created_at: orders.created_at })
-    .from(orders)
-    .where(gte(orders.created_at, new Date(startTime)));
+  try {
+    const data = await db()
+      .select({ created_at: orders.created_at })
+      .from(orders)
+      .where(gte(orders.created_at, new Date(startTime)));
 
-  data.sort((a, b) => a.created_at!.getTime() - b.created_at!.getTime());
+    if (!data || data.length === 0) {
+      return new Map<string, number>();
+    }
 
-  const dateCountMap = new Map<string, number>();
-  data.forEach((item) => {
-    const date = item.created_at!.toISOString().split("T")[0];
-    dateCountMap.set(date, (dateCountMap.get(date) || 0) + 1);
-  });
+    data.sort((a, b) => {
+      if (!a.created_at || !b.created_at) return 0;
+      return a.created_at.getTime() - b.created_at.getTime();
+    });
 
-  return dateCountMap;
+    const dateCountMap = new Map<string, number>();
+    data.forEach((item) => {
+      if (item.created_at) {
+        const date = item.created_at.toISOString().split("T")[0];
+        dateCountMap.set(date, (dateCountMap.get(date) || 0) + 1);
+      }
+    });
+
+    return dateCountMap;
+  } catch (error) {
+    console.error("Error getting order count by date:", error);
+    return new Map<string, number>();
+  }
 }

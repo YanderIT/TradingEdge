@@ -41,12 +41,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
     }
 
-    const { title, expires_at } = await request.json();
+    const { title, expires_at, custom_key } = await request.json();
+
+    // Validate custom key if provided
+    if (custom_key && custom_key.trim()) {
+      const trimmedKey = custom_key.trim();
+      
+      // Check length (minimum 8 characters)
+      if (trimmedKey.length < 8) {
+        return NextResponse.json(
+          { message: 'Custom access key must be at least 8 characters long' },
+          { status: 400 }
+        );
+      }
+      
+      // Check if contains only alphanumeric characters
+      const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+      if (!alphanumericRegex.test(trimmedKey)) {
+        return NextResponse.json(
+          { message: 'Custom access key must contain only letters and numbers' },
+          { status: 400 }
+        );
+      }
+    }
 
     const newKey = await createAccessKey({
       title,
       created_by: userInfo.email,
       expires_at: expires_at ? new Date(expires_at) : undefined,
+      custom_key: custom_key?.trim() || undefined,
     });
 
     return NextResponse.json(newKey, { status: 201 });

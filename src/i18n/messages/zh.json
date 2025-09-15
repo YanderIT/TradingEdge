@@ -118,6 +118,10 @@
     "form": {
       "name": "名称",
       "name_placeholder": "API 密钥名称",
+      "custom_key": "自定义 API 密钥（可选）",
+      "custom_key_placeholder": "输入您的自定义密钥（留空则自动生成）",
+      "custom_key_help": "如果提供，必须至少8个字符且只能包含字母和数字",
+      "enable_custom": "使用自定义 API 密钥",
       "submit": "提交"
     }
   },

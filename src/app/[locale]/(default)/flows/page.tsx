@@ -1,10 +1,12 @@
+"use client";
+
 import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
 import { Table as TableSlotType } from "@/types/slots/table";
 import TableSlot from "@/components/console/slots/table";
 import { TableColumn } from "@/types/blocks/table";
+import SymbolSearch from "@/components/blocks/symbol-search";
 
 export const revalidate = 60;
 export const dynamic = "force-dynamic";
@@ -57,7 +59,7 @@ export default async function FlowsPage({
 
   // TODO: Replace with actual aggregated data from flow_data table
   // This would require aggregating by ticker and calculating bull/bear metrics
-  const data = []; // Empty for now - needs implementation
+  const data: any[] = []; // Empty for now - needs implementation
 
   const table: TableSlotType = {
     title: "Total",
@@ -72,10 +74,11 @@ export default async function FlowsPage({
       {/* Centered header */}
       <div className="flex flex-col items-center space-y-4">
         <h1 className="text-2xl font-bold">Flows Over Time</h1>
-        <div className="flex items-center gap-2 w-full max-w-md">
-          <Input placeholder="Symbol..." className="flex-1" />
-          <button className="px-4 py-2 text-sm rounded border hover:bg-muted">Search</button>
-        </div>
+        <SymbolSearch 
+          locale={locale}
+          placeholder="Symbol..."
+          className="w-full max-w-md"
+        />
       </div>
 
       {/* Tabs */}

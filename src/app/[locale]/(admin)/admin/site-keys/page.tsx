@@ -32,6 +32,7 @@ export default function SiteKeysPage() {
   const [newKey, setNewKey] = useState({
     title: '',
     expires_at: '',
+    custom_key: '',
   });
 
   // 加载所有密钥
@@ -66,13 +67,14 @@ export default function SiteKeysPage() {
         body: JSON.stringify({
           title: newKey.title || null,
           expires_at: newKey.expires_at ? new Date(newKey.expires_at).toISOString() : null,
+          custom_key: newKey.custom_key || null,
         }),
       });
 
       if (response.ok) {
         toast.success('Access key created successfully');
         setShowCreateDialog(false);
-        setNewKey({ title: '', expires_at: '' });
+        setNewKey({ title: '', expires_at: '', custom_key: '' });
         loadKeys();
       } else {
         const data = await response.json();
@@ -180,6 +182,20 @@ export default function SiteKeysPage() {
                   value={newKey.title}
                   onChange={(e) => setNewKey(prev => ({ ...prev, title: e.target.value }))}
                 />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="custom_key">Custom Access Key (Optional)</Label>
+                <Input
+                  id="custom_key"
+                  type="text"
+                  placeholder="Enter custom key (leave empty to auto-generate)"
+                  value={newKey.custom_key}
+                  onChange={(e) => setNewKey(prev => ({ ...prev, custom_key: e.target.value }))}
+                />
+                <p className="text-xs text-muted-foreground">
+                  If provided, must be at least 8 characters long and contain only letters and numbers
+                </p>
               </div>
               
               <div className="space-y-2">

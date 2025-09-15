@@ -63,13 +63,31 @@ export default function RankingDataSection({ locale, currentDate, onDateChange, 
     if (!currentDate) return;
     
     const dateObj = new Date(currentDate + 'T12:00:00'); // Use noon to avoid timezone issues
+    
     if (direction === 'prev') {
       dateObj.setDate(dateObj.getDate() - 1);
+      // Skip weekends when going backward
+      if (dateObj.getDay() === 0) {
+        // If we land on Sunday, go to Friday
+        dateObj.setDate(dateObj.getDate() - 2);
+      } else if (dateObj.getDay() === 6) {
+        // If we land on Saturday, go to Friday
+        dateObj.setDate(dateObj.getDate() - 1);
+      }
     } else {
       dateObj.setDate(dateObj.getDate() + 1);
+      // Skip weekends when going forward
+      if (dateObj.getDay() === 6) {
+        // If we land on Saturday, go to Monday
+        dateObj.setDate(dateObj.getDate() + 2);
+      } else if (dateObj.getDay() === 0) {
+        // If we land on Sunday, go to Monday
+        dateObj.setDate(dateObj.getDate() + 1);
+      }
     }
+    
     const newDateStr = formatDate(dateObj);
-    console.log('📅 Navigating from', currentDate, 'to', newDateStr);
+    console.log('📅 Navigating from', currentDate, 'to', newDateStr, '(Day of week:', dateObj.getDay(), ')');
     onDateChange(newDateStr);
   };
 

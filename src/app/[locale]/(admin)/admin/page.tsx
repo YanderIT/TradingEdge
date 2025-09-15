@@ -8,43 +8,70 @@ import { getPostsTotal } from "@/models/post";
 import { DataCard } from "@/types/blocks/base";
 
 export default async function () {
-  const totalPaidOrders = await getPaidOrdersTotal();
-  const totalUsers = await getUsersTotal();
-  const totalFeedbacks = await getFeedbacksTotal();
-  const totalPosts = await getPostsTotal();
+  let totalPaidOrders = 0;
+  let totalUsers = 0;
+  let totalFeedbacks = 0;
+  let totalPosts = 0;
+  let orders: Map<string, number> | undefined;
+  let users: Map<string, number> | undefined;
+
+  try {
+    // Fetch all data with error handling
+    const [paidOrdersResult, usersResult, feedbacksResult, postsResult] = await Promise.allSettled([
+      getPaidOrdersTotal(),
+      getUsersTotal(),
+      getFeedbacksTotal(),
+      getPostsTotal(),
+    ]);
+
+    totalPaidOrders = paidOrdersResult.status === 'fulfilled' ? (paidOrdersResult.value || 0) : 0;
+    totalUsers = usersResult.status === 'fulfilled' ? (usersResult.value || 0) : 0;
+    totalFeedbacks = feedbacksResult.status === 'fulfilled' ? (feedbacksResult.value || 0) : 0;
+    totalPosts = postsResult.status === 'fulfilled' ? (postsResult.value || 0) : 0;
+
+    // Get data for the last 90 days with error handling
+    const startTime = new Date();
+    startTime.setDate(startTime.getDate() - 90);
+    
+    const [ordersResult, usersDateResult] = await Promise.allSettled([
+      getOrderCountByDate(startTime.toISOString(), "paid"),
+      getUserCountByDate(startTime.toISOString()),
+    ]);
+
+    orders = ordersResult.status === 'fulfilled' ? ordersResult.value : undefined;
+    users = usersDateResult.status === 'fulfilled' ? usersDateResult.value : undefined;
+
+  } catch (error) {
+    console.error("Error fetching admin dashboard data:", error);
+    // Continue with default values
+  }
 
   const dataCards: DataCard[] = [
     {
       title: "Total Users",
       label: "",
-      value: (totalUsers || 0).toString(),
+      value: totalUsers.toString(),
       description: "Total users registered in the system",
     },
     {
       title: "Paid Orders",
       label: "",
-      value: (totalPaidOrders || 0).toString(),
+      value: totalPaidOrders.toString(),
       description: "User Paid Orders in total",
     },
     {
       title: "System Posts",
       label: "",
-      value: (totalPosts || 0).toString(),
+      value: totalPosts.toString(),
       description: "Posts in total",
     },
     {
       title: "User Feedbacks",
       label: "",
-      value: (totalFeedbacks || 0).toString(),
+      value: totalFeedbacks.toString(),
       description: "Feedbacks in total",
     },
   ];
-
-  // Get data for the last 30 days
-  const startTime = new Date();
-  startTime.setDate(startTime.getDate() - 90);
-  const orders = await getOrderCountByDate(startTime.toISOString(), "paid");
-  const users = await getUserCountByDate(startTime.toISOString());
 
   // Merge the data into a single array
   const allDates = new Set([

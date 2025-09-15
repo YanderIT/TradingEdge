@@ -102,13 +102,46 @@ export async function clearAccessToken(): Promise<void> {
   cookieStore.delete(ACCESS_TOKEN_COOKIE);
 }
 
+// 检查访问密钥是否已存在
+export async function checkAccessKeyExists(accessKey: string): Promise<boolean> {
+  try {
+    const database = db();
+    const result = await database
+      .select()
+      .from(siteAccessKeys)
+      .where(eq(siteAccessKeys.access_key, accessKey))
+      .limit(1);
+    
+    return result.length > 0;
+  } catch (error) {
+    console.error('Error checking access key existence:', error);
+    return false;
+  }
+}
+
 // 创建新的访问密钥
 export async function createAccessKey(data: {
   title?: string;
   created_by?: string;
   expires_at?: Date;
+  custom_key?: string;
 }): Promise<SiteAccessKey> {
-  const key = generateAccessKey();
+  let key: string;
+  
+  if (data.custom_key && data.custom_key.trim()) {
+    // Use custom key
+    key = data.custom_key.trim();
+    
+    // Check if key already exists
+    const keyExists = await checkAccessKeyExists(key);
+    if (keyExists) {
+      throw new Error('Access key already exists, please use a different key');
+    }
+  } else {
+    // Auto-generate key
+    key = generateAccessKey();
+  }
+  
   const database = db();
   
   const result = await database
@@ -153,6 +186,27 @@ export async function deleteAccessKey(id: number): Promise<void> {
   await database
     .delete(siteAccessKeys)
     .where(eq(siteAccessKeys.id, id));
+}
+
+// 检查用户是否为管理员
+export function isUserAdmin(email: string): boolean {
+  const adminEmails = process.env.ADMIN_EMAILS?.split(',') || [];
+  return adminEmails.includes(email);
+}
+
+// 为管理员用户自动设置访问令牌
+export async function setAdminAccessToken(email: string): Promise<boolean> {
+  if (!isUserAdmin(email)) {
+    return false;
+  }
+  
+  try {
+    await setAccessToken();
+    return true;
+  } catch (error) {
+    console.error('Error setting admin access token:', error);
+    return false;
+  }
 }
 
 // 检查是否启用了访问密钥功能

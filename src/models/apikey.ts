@@ -52,3 +52,17 @@ export async function getUserUuidByApiKey(
 
   return apikey?.user_uuid;
 }
+
+export async function checkApiKeyExists(
+  apiKey: string
+): Promise<boolean> {
+  const [existingKey] = await db()
+    .select()
+    .from(apikeys)
+    .where(
+      and(eq(apikeys.api_key, apiKey), ne(apikeys.status, ApikeyStatus.Deleted))
+    )
+    .limit(1);
+
+  return !!existingKey;
+}

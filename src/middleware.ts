@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from "next/server";
+import { decode } from "next-auth/jwt";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -21,6 +22,43 @@ export default async function middleware(request: NextRequest) {
       const accessToken = request.cookies.get('site_access_token');
       
       if (!accessToken) {
+        // Check if user is authenticated with NextAuth
+        try {
+          const sessionToken = request.cookies.get('next-auth.session-token') || 
+                              request.cookies.get('__Secure-next-auth.session-token');
+          
+          if (sessionToken) {
+            // User is authenticated, check if they're an admin
+            const token = await decode({
+              token: sessionToken.value,
+              secret: process.env.AUTH_SECRET!,
+              salt: "",
+            });
+            
+            if (token && typeof token === 'object' && 'user' in token && token.user && typeof token.user === 'object' && 'email' in token.user && typeof token.user.email === 'string') {
+              const adminEmails = process.env.ADMIN_EMAILS?.split(',') || [];
+              const isAdmin = adminEmails.includes(token.user.email);
+              
+              if (isAdmin) {
+                // Auto-grant access for admins by setting access token
+                const response = intlMiddleware(request);
+                if (response) {
+                  response.cookies.set('site_access_token', 'admin-auto-access', {
+                    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'lax',
+                    path: '/'
+                  });
+                  return response;
+                }
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error checking auth in middleware:', error);
+        }
+        
         // 没有访问令牌，重定向到访问密钥页面
         const url = request.nextUrl.clone();
         

@@ -1,4 +1,4 @@
-import { ApikeyStatus, insertApikey } from "@/models/apikey";
+import { ApikeyStatus, insertApikey, checkApiKeyExists } from "@/models/apikey";
 
 import Empty from "@/components/blocks/empty";
 import FormSlot from "@/components/console/slots/form";
@@ -39,6 +39,16 @@ export default async function () {
           required: true,
         },
       },
+      {
+        title: t("api_keys.form.custom_key"),
+        name: "custom_key",
+        type: "text",
+        placeholder: t("api_keys.form.custom_key_placeholder"),
+        tip: t("api_keys.form.custom_key_help"),
+        validation: {
+          required: false,
+        },
+      },
     ],
     passby: {
       user_uuid,
@@ -61,7 +71,35 @@ export default async function () {
           throw new Error("invalid params");
         }
 
-        const key = `sk-${getNonceStr(32)}`;
+        const customKey = data.get("custom_key") as string;
+        let key: string;
+
+        if (customKey && customKey.trim()) {
+          // Validate custom key format
+          const trimmedKey = customKey.trim();
+          
+          // Check length (minimum 8 characters)
+          if (trimmedKey.length < 8) {
+            throw new Error("Custom API key must be at least 8 characters long");
+          }
+          
+          // Check if contains only alphanumeric characters
+          const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+          if (!alphanumericRegex.test(trimmedKey)) {
+            throw new Error("Custom API key must contain only letters and numbers");
+          }
+
+          // Check if key already exists
+          const keyExists = await checkApiKeyExists(trimmedKey);
+          if (keyExists) {
+            throw new Error("API key already exists, please use a different key");
+          }
+
+          key = trimmedKey;
+        } else {
+          // Auto-generate key
+          key = `sk-${getNonceStr(32)}`;
+        }
 
         const apikey = {
           user_uuid,

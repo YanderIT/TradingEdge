@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import RankingDataSection from "@/components/blocks/ranking-data";
 import FlowDataTables from "@/components/blocks/flow-data-tables";
+import SymbolSearch from "@/components/blocks/symbol-search";
 import { getLatestAvailableDate, formatDate } from "@/services/rankingData";
 
 interface TradingDashboardProps {
@@ -54,13 +55,12 @@ export default function TradingDashboard({ locale }: TradingDashboardProps) {
       />
 
       {/* Search Box Section */}
-      <div className="flex items-center justify-center space-x-2">
-        <Input 
-          type="text" 
-          placeholder="Symbol..." 
-          className="w-64"
+      <div className="flex justify-center">
+        <SymbolSearch 
+          locale={locale}
+          placeholder="Search Symbol..."
+          className="w-full max-w-md"
         />
-        <Button>Search</Button>
       </div>
 
       {/* Flow Data Tables */}

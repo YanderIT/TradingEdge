@@ -125,3 +125,18 @@ export async function getFlowDataByDateRange(
   
   return results;
 }
+
+export async function getLatestFlowDataDate(): Promise<string | null> {
+  try {
+    const [result] = await db()
+      .select({ dt: flowData.dt })
+      .from(flowData)
+      .orderBy(desc(flowData.dt))
+      .limit(1);
+    
+    return result?.dt || null;
+  } catch (error) {
+    console.error('Failed to get latest flow data date:', error);
+    return null;
+  }
+}

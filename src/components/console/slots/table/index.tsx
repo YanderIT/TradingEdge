@@ -11,7 +11,7 @@ export default function ({ ...table }: TableSlotType) {
         <h3 className="text-base font-bold leading-none flex items-center gap-2">
           <span>{table.title}</span>
           {Array.isArray(table.data) && (
-            <Badge variant="secondary" className="rounded-full bg-gray-600 text-white border-transparent px-2.5 py-0.5">
+            <Badge variant="secondary" className="rounded-full bg-muted-foreground/20 dark:bg-muted-foreground/30 text-foreground border-transparent px-2.5 py-0.5">
               {table.data.length}
             </Badge>
           )}

@@ -50,7 +50,11 @@ export async function getFeedbacks(
 }
 
 export async function getFeedbacksTotal(): Promise<number | undefined> {
-  const total = await db().$count(feedbacks);
-
-  return total;
+  try {
+    const total = await db().$count(feedbacks);
+    return total || 0;
+  } catch (error) {
+    console.error("Error getting feedbacks total:", error);
+    return 0;
+  }
 }
