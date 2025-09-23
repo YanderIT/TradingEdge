@@ -39,16 +39,16 @@ export async function getLatestAvailableDate(): Promise<string | null> {
     console.log('🔍 Fetching latest available date...');
     const response = await fetch('/api/data/ranking?limit=1');
     console.log('📡 API Response status:', response.status);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
     console.log('📊 API Result:', result);
-    
+
     const data = result.data || [];
     console.log('📅 Data array:', data);
-    
+
     if (data.length > 0) {
       console.log('✅ Latest date found:', data[0].dt);
       return data[0].dt;
@@ -58,6 +58,49 @@ export async function getLatestAvailableDate(): Promise<string | null> {
   } catch (error) {
     console.error('❌ Failed to get latest available date:', error);
     return null;
+  }
+}
+
+export async function getEarliestAvailableDate(): Promise<string | null> {
+  try {
+    console.log('🔍 Fetching earliest available date...');
+    const response = await fetch('/api/data/ranking?earliest=true');
+    console.log('📡 API Response status:', response.status);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    console.log('📊 API Result:', result);
+
+    const data = result.data || [];
+    console.log('📅 Data array:', data);
+
+    if (data.length > 0) {
+      console.log('✅ Earliest date found:', data[0].dt);
+      return data[0].dt;
+    }
+    console.log('❌ No data found in database');
+    return null;
+  } catch (error) {
+    console.error('❌ Failed to get earliest available date:', error);
+    return null;
+  }
+}
+
+export async function getDateRange(): Promise<{ earliest: string | null; latest: string | null }> {
+  try {
+    console.log('🔍 Fetching date range...');
+    const [earliest, latest] = await Promise.all([
+      getEarliestAvailableDate(),
+      getLatestAvailableDate()
+    ]);
+
+    console.log('📅 Date range:', { earliest, latest });
+    return { earliest, latest };
+  } catch (error) {
+    console.error('❌ Failed to get date range:', error);
+    return { earliest: null, latest: null };
   }
 }
 

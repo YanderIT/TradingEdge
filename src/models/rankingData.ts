@@ -61,7 +61,7 @@ export async function getLatestRankingData(
   limit: number = 100
 ): Promise<(typeof rankingData.$inferSelect)[]> {
   console.log('🔍 Getting latest ranking data with limit:', limit);
-  
+
   try {
     // First get the latest date
     const latestDateResult = await db()
@@ -69,17 +69,17 @@ export async function getLatestRankingData(
       .from(rankingData)
       .orderBy(desc(rankingData.dt))
       .limit(1);
-    
+
     console.log('📅 Latest date query result:', latestDateResult);
-    
+
     if (latestDateResult.length === 0) {
       console.log('❌ No data found in ranking_data table');
       return [];
     }
-    
+
     const latestDate = latestDateResult[0].dt;
     console.log('📅 Latest date found:', latestDate);
-    
+
     // Then get all data for that latest date
     const results = await db()
       .select()
@@ -87,13 +87,67 @@ export async function getLatestRankingData(
       .where(eq(rankingData.dt, latestDate))
       .orderBy(asc(rankingData.rank))
       .limit(limit);
-    
+
     console.log('✅ Latest ranking data query result count:', results.length);
     console.log('📋 First few results:', results.slice(0, 3));
-    
+
     return results;
   } catch (error) {
     console.error('❌ Database query failed for getLatestRankingData:', error);
     throw error;
+  }
+}
+
+export async function getEarliestRankingDate(): Promise<string | null> {
+  console.log('🔍 Getting earliest ranking date...');
+
+  try {
+    const earliestDateResult = await db()
+      .select({ dt: rankingData.dt })
+      .from(rankingData)
+      .orderBy(asc(rankingData.dt))
+      .limit(1);
+
+    console.log('📅 Earliest date query result:', earliestDateResult);
+
+    if (earliestDateResult.length === 0) {
+      console.log('❌ No data found in ranking_data table');
+      return null;
+    }
+
+    const earliestDate = earliestDateResult[0].dt;
+    console.log('✅ Earliest date found:', earliestDate);
+
+    return earliestDate;
+  } catch (error) {
+    console.error('❌ Database query failed for getEarliestRankingDate:', error);
+    return null;
+  }
+}
+
+export async function getLatestRankingDate(): Promise<string | null> {
+  console.log('🔍 Getting latest ranking date...');
+
+  try {
+    const latestDateResult = await db()
+      .select({ dt: rankingData.dt })
+      .from(rankingData)
+      .orderBy(desc(rankingData.dt))
+      .limit(1);
+
+    console.log('📅 Latest date query result:', latestDateResult);
+
+    if (latestDateResult.length === 0) {
+      console.log('❌ No data found in ranking_data table');
+      return null;
+    }
+
+    const latestDate = latestDateResult[0].dt;
+    console.log('✅ Latest date found:', latestDate);
+
+    return latestDate;
+  } catch (error) {
+    console.error('❌ Database query failed for getLatestRankingDate:', error);
+    return null;
   }
 }

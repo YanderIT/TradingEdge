@@ -255,46 +255,32 @@ export async function getLatestFlowDate(): Promise<string | null> {
   }
 }
 
-function getMondayOfWeek(date: Date): Date {
-  const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-  const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // If Sunday, go back 6 days; otherwise go back to Monday
-  const monday = new Date(date);
-  monday.setDate(date.getDate() + mondayOffset);
-  return monday;
-}
-
 function getStartDateForPeriod(latestDate: string, period: string): string {
   const endDateObj = new Date(latestDate + 'T12:00:00');
-  let startDateObj: Date;
-  
+  const startDateObj = new Date(endDateObj);
+
   switch (period) {
     case '1w':
-      // Current week's Monday
-      startDateObj = getMondayOfWeek(endDateObj);
+      // 7 days back from latest date (including latest date)
+      startDateObj.setDate(endDateObj.getDate() - 6);
       break;
     case '2w':
-      // Previous week's Monday (2 weeks total)
-      const currentMonday = getMondayOfWeek(endDateObj);
-      startDateObj = new Date(currentMonday);
-      startDateObj.setDate(currentMonday.getDate() - 7);
+      // 14 days back from latest date
+      startDateObj.setDate(endDateObj.getDate() - 13);
       break;
     case '1m':
-      // Approximately 4 weeks back to nearest Monday
-      const monthMonday = getMondayOfWeek(endDateObj);
-      startDateObj = new Date(monthMonday);
-      startDateObj.setDate(monthMonday.getDate() - 21); // 3 weeks back from current week
+      // 30 days back from latest date
+      startDateObj.setDate(endDateObj.getDate() - 29);
       break;
     case '3m':
-      // Approximately 12 weeks back to nearest Monday
-      const quarterMonday = getMondayOfWeek(endDateObj);
-      startDateObj = new Date(quarterMonday);
-      startDateObj.setDate(quarterMonday.getDate() - 77); // 11 weeks back from current week
+      // 90 days back from latest date
+      startDateObj.setDate(endDateObj.getDate() - 89);
       break;
     default:
-      // Default to current week's Monday
-      startDateObj = getMondayOfWeek(endDateObj);
+      // Default to 7 days back
+      startDateObj.setDate(endDateObj.getDate() - 6);
   }
-  
+
   return startDateObj.toISOString().split('T')[0];
 }
 
@@ -309,12 +295,12 @@ export async function getDateRangeFromLatest(period: string): Promise<{ startDat
     const endDate = latestDate;
     const startDate = getStartDateForPeriod(latestDate, period);
     
-    console.log('📅 Week-based date range calculated:', { 
-      period, 
-      startDate, 
-      endDate, 
+    console.log('📅 Date range calculated from latest date:', {
+      period,
+      startDate,
+      endDate,
       latestDate,
-      latestDayOfWeek: new Date(latestDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long' })
+      daysBack: period === '1w' ? 7 : period === '2w' ? 14 : period === '1m' ? 30 : period === '3m' ? 90 : 7
     });
     
     return { startDate, endDate };

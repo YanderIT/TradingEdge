@@ -1,5 +1,6 @@
 import Footer from "@/components/blocks/footer";
 import Header from "@/components/blocks/header";
+import DisclaimerFooter from "@/components/blocks/disclaimer-footer";
 import { ReactNode } from "react";
 import { getLandingPage } from "@/services/page";
 // import Feedback from "@/components/feedback";
@@ -15,11 +16,12 @@ export default async function DefaultLayout({
   const page = await getLandingPage(locale);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       {page.header && <Header header={page.header} />}
-      <main className="overflow-x-hidden px-4 md:px-6 lg:px-8">{children}</main>
+      <main className="overflow-x-hidden px-4 md:px-6 lg:px-8 flex-1">{children}</main>
       {/* {page.footer && <Footer footer={page.footer} />} */}
       {/* <Feedback socialLinks={page.footer?.social?.items} /> */}
-    </>
+      <DisclaimerFooter />
+    </div>
   );
 }

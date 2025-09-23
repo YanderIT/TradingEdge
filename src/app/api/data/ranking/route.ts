@@ -3,6 +3,8 @@ import {
   getRankingDataByDate,
   getRankingDataByFilters,
   getLatestRankingData,
+  getEarliestRankingDate,
+  getLatestRankingDate,
   insertRankingData,
   insertRankingDataBatch,
 } from "@/models/rankingData";
@@ -16,14 +18,23 @@ export async function GET(req: NextRequest) {
     const window = searchParams.get("window");
     const ticker = searchParams.get("ticker");
     const limit = searchParams.get("limit");
+    const earliest = searchParams.get("earliest");
 
     console.log('🔍 API ranking GET request params:', {
-      dt, listType, window, ticker, limit
+      dt, listType, window, ticker, limit, earliest
     });
 
-    let results;
+    let results: any[] = [];
 
-    if (dt) {
+    if (earliest === 'true') {
+      console.log('📅 Fetching earliest date');
+      const earliestDate = await getEarliestRankingDate();
+      if (earliestDate) {
+        results = await getRankingDataByDate(earliestDate);
+      } else {
+        results = [];
+      }
+    } else if (dt) {
       console.log('📅 Fetching data for specific date:', dt);
       if (listType || window || ticker) {
         console.log('🔍 Using filters:', { listType, window, ticker });

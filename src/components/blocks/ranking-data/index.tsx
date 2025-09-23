@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { 
-  fetchRankingData, 
-  groupRankingData, 
-  formatDate, 
-  formatDisplayDate, 
+import {
+  fetchRankingData,
+  groupRankingData,
+  formatDate,
+  formatDisplayDate,
   getLatestAvailableDate,
-  GroupedRankingData 
+  getDateRange,
+  GroupedRankingData
 } from "@/services/rankingData";
 
 interface RankingDataSectionProps {
@@ -23,14 +24,33 @@ interface RankingDataSectionProps {
 export default function RankingDataSection({ locale, currentDate, onDateChange, initializing = false }: RankingDataSectionProps) {
   const [rankingData, setRankingData] = useState<GroupedRankingData>({});
   const [loading, setLoading] = useState(true);
-  
+  const [dateRange, setDateRange] = useState<{ earliest: string | null; latest: string | null }>({
+    earliest: null,
+    latest: null
+  });
+
   const t = useTranslations();
+
+  useEffect(() => {
+    loadDateRange();
+  }, []);
 
   useEffect(() => {
     if (currentDate) {
       loadRankingData();
     }
   }, [currentDate]);
+
+  const loadDateRange = async () => {
+    console.log('🔄 Loading date range...');
+    try {
+      const range = await getDateRange();
+      console.log('📅 Date range loaded:', range);
+      setDateRange(range);
+    } catch (error) {
+      console.error('❌ Failed to load date range:', error);
+    }
+  };
 
   const loadRankingData = async () => {
     if (!currentDate) {
@@ -61,9 +81,9 @@ export default function RankingDataSection({ locale, currentDate, onDateChange, 
 
   const navigateDate = (direction: 'prev' | 'next') => {
     if (!currentDate) return;
-    
+
     const dateObj = new Date(currentDate + 'T12:00:00'); // Use noon to avoid timezone issues
-    
+
     if (direction === 'prev') {
       dateObj.setDate(dateObj.getDate() - 1);
       // Skip weekends when going backward
@@ -85,10 +105,58 @@ export default function RankingDataSection({ locale, currentDate, onDateChange, 
         dateObj.setDate(dateObj.getDate() + 1);
       }
     }
-    
+
     const newDateStr = formatDate(dateObj);
+
+    // Check date boundaries
+    if (direction === 'prev' && dateRange.earliest && newDateStr < dateRange.earliest) {
+      console.log('⚠️ Cannot navigate before earliest date:', dateRange.earliest);
+      return;
+    }
+
+    if (direction === 'next' && dateRange.latest && newDateStr > dateRange.latest) {
+      console.log('⚠️ Cannot navigate after latest date:', dateRange.latest);
+      return;
+    }
+
     console.log('📅 Navigating from', currentDate, 'to', newDateStr, '(Day of week:', dateObj.getDay(), ')');
     onDateChange(newDateStr);
+  };
+
+  const canNavigatePrev = () => {
+    if (!currentDate || !dateRange.earliest) return true;
+
+    const currentDateObj = new Date(currentDate + 'T12:00:00');
+    const prevDateObj = new Date(currentDateObj);
+    prevDateObj.setDate(prevDateObj.getDate() - 1);
+
+    // Skip weekends when checking
+    if (prevDateObj.getDay() === 0) {
+      prevDateObj.setDate(prevDateObj.getDate() - 2);
+    } else if (prevDateObj.getDay() === 6) {
+      prevDateObj.setDate(prevDateObj.getDate() - 1);
+    }
+
+    const prevDateStr = formatDate(prevDateObj);
+    return prevDateStr >= dateRange.earliest;
+  };
+
+  const canNavigateNext = () => {
+    if (!currentDate || !dateRange.latest) return true;
+
+    const currentDateObj = new Date(currentDate + 'T12:00:00');
+    const nextDateObj = new Date(currentDateObj);
+    nextDateObj.setDate(nextDateObj.getDate() + 1);
+
+    // Skip weekends when checking
+    if (nextDateObj.getDay() === 6) {
+      nextDateObj.setDate(nextDateObj.getDate() + 2);
+    } else if (nextDateObj.getDay() === 0) {
+      nextDateObj.setDate(nextDateObj.getDate() + 1);
+    }
+
+    const nextDateStr = formatDate(nextDateObj);
+    return nextDateStr <= dateRange.latest;
   };
 
   const getRankingTickers = (listType: string, window: string): string[] => {
@@ -138,20 +206,22 @@ export default function RankingDataSection({ locale, currentDate, onDateChange, 
         
         <div className="flex items-center justify-center space-x-8">
           <div className="flex items-center space-x-2">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigateDate('prev')}
+              disabled={!canNavigatePrev()}
             >
               ←
             </Button>
             <span className="text-sm font-medium px-4 py-2 bg-muted rounded">
               {currentDate ? formatDisplayDate(currentDate) : ''}
             </span>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigateDate('next')}
+              disabled={!canNavigateNext()}
             >
               →
             </Button>
